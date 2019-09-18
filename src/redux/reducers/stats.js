@@ -1,8 +1,8 @@
-// import * as types from 'redux/types/convertion'
+// import * as types from 'redux/types/conversion'
 
 const initialState = {
   popularDestCurrency: null,
-  convertionsCount: 0,
+  conversionsCount: 0,
   totalAmount: 0
 }
 

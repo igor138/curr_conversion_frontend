@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 
-class ConvertionForm extends Component {
+class ConversionForm extends Component {
   render() {
-    const { handleSubmit, invalid, submitting, pristine } = this.props
+    const { handleSubmit, invalid, submitting, pristine, currencies } = this.props
+
+    const currOptions = currencies && Object.entries(currencies).map(([code, name]) => 
+      <option key={code} value={code}>{name}</option>
+    )
+
     return (
       <form noValidate onSubmit={handleSubmit}>
         <div>
@@ -14,8 +19,7 @@ class ConvertionForm extends Component {
               type='select'
               component='select'
             >
-              <option value='USD'>Dollar</option>
-              <option value='EUR'>Euro</option>
+              {currOptions}
             </Field>
           </div>
           <div>
@@ -25,8 +29,7 @@ class ConvertionForm extends Component {
               type='select'
               component='select'
             >
-              <option value='USD'>Dollar</option>
-              <option value='EUR'>Euro</option>
+              {currOptions}
             </Field>
           </div>
           <div>
@@ -35,6 +38,7 @@ class ConvertionForm extends Component {
             name='amount'
             type='number'
             component='input'
+            // validate=[]
           />
           </div>
         </div>
@@ -53,6 +57,6 @@ class ConvertionForm extends Component {
 }
 
 export default reduxForm({
-  form: 'convertion',
+  form: 'conversion',
   enableReinitialize: true
-})(ConvertionForm)
+})(ConversionForm)
