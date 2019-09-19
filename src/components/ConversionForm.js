@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 
 class ConversionForm extends Component {
   render() {
-    const { handleSubmit, invalid, submitting, pristine, currencies } = this.props
+    const { handleSubmit, invalid, currencies, isLoading } = this.props
 
     const currOptions = currencies && Object.entries(currencies).map(([code, name]) => 
       <option key={code} value={code}>{name}</option>
@@ -46,7 +46,7 @@ class ConversionForm extends Component {
           <button
             type='submit'
             className='avs-btn avs-btn-primary avs-large'
-            disabled={invalid || submitting || pristine}
+            disabled={invalid || isLoading}
           >
             Convert
           </button>
