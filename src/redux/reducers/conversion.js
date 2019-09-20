@@ -31,10 +31,11 @@ export default (state = initialState, action) => {
     } 
     
     case types.CONVERSION_FINISHED: {
+      const { response } = action.payload
       return {
         ...state,
         isLoading: false,
-        convertedAmount: action.payload.response
+        convertedAmount: response && response.toFixed(2)
       }
     }
 

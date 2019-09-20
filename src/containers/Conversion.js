@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import ConversionForm from '../components/ConversionForm'
+import Error from '../components/Error'
 import * as conversionActions from '../redux/actions/conversion'
 
 export class Conversion extends Component {
@@ -13,8 +14,6 @@ export class Conversion extends Component {
   render() {
     const { convert, currencies, convertedAmount, isLoading, error } = this.props
 
-    const errorBlock = error && <div className='error'>{error}</div>
-
     return (
       <div>
         CONVERSION
@@ -24,9 +23,9 @@ export class Conversion extends Component {
           isLoading={isLoading}
         />
         <div>
-          {convertedAmount}
+          Converted amount: {convertedAmount}
         </div>
-        {errorBlock}
+        {error && <Error error={error}/>}
       </div>
     )
   }

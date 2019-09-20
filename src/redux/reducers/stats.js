@@ -17,19 +17,20 @@ export default (state = initialState, action) => {
       }
     }
     case types.FETCHING_STATS_FINISHED: {
+      const { popularDestCurrency, conversionsCount, totalAmount} = action.payload
       return {
         ...state,
         isLoading: false,
-        popularDestCurrency: action.payload.popularDestCurrency,
-        conversionsCount: action.payload.conversionsCount,
-        totalAmount: action.payload.totalAmount
+        popularDestCurrency: popularDestCurrency,
+        conversionsCount: conversionsCount,
+        totalAmount: totalAmount && totalAmount.toFixed(2)
       }
     }
     case types.STATS_ERROR: {
       return {
         ...state,
         isLoading: false,
-        error: action.payload.error
+        error: action.payload
       }
     }
     default: {
