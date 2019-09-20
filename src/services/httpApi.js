@@ -1,29 +1,26 @@
 const { __APP_CONFIG__: { apiUrl } } = window
 
-const httpGet = (url, callback) => (
-  fetch(apiUrl + url)
+const httpRequest = (method = 'get', url, callback, errorCallback, data) => {
+  let options = { method }
+  if (method === 'post') {
+    options.body = JSON.stringify(data)
+    options.headers = { 'Content-Type': 'application/json' }
+  }
+
+  return fetch(apiUrl + url, options)
     .then(response => response.json())
     .then(callback)
-)
-
-const httpPost = (url, data, callback) => (
-  fetch(apiUrl + url, { 
-    method: 'post',
-    body: JSON.stringify(data),
-    headers: { 'Content-Type': 'application/json' }
-  })
-    .then(response => response.json())
-    .then(callback)
-)  
-
-export const getStats = callback => {
-  httpGet('/conversion', callback)
+    .catch(errorCallback)
 }
 
-export const getCurrencies = callback => {
-  httpGet('/currency', callback)
+export const getStats = (callback, errorCallback) => {
+  httpRequest('get', '/conversion', callback, errorCallback)
 }
 
-export const convert = (data, callback) => {
-  httpPost('/conversion', data, callback)
+export const getCurrencies = (callback, errorCallback) => {
+  httpRequest('get', '/currency', callback, errorCallback)
+}
+
+export const convert = (callback, errorCallback, data) => {
+  httpRequest('post', '/conversion', callback, errorCallback, data)
 } 

@@ -11,7 +11,10 @@ export class Conversion extends Component {
   }
 
   render() {
-    const { convert, currencies, convertedAmount, isLoading } = this.props
+    const { convert, currencies, convertedAmount, isLoading, error } = this.props
+
+    const errorBlock = error && <div className='error'>{error}</div>
+
     return (
       <div>
         CONVERSION
@@ -23,6 +26,7 @@ export class Conversion extends Component {
         <div>
           {convertedAmount}
         </div>
+        {errorBlock}
       </div>
     )
   }
@@ -32,7 +36,9 @@ export default connect(
   state => ({
     currencies: state.conversion.currencies,
     convertedAmount: state.conversion.convertedAmount,
-    isLoading: state.conversion.isLoading
+    isLoading: state.conversion.isLoading,
+    error: state.conversion.error
+    
   }),
   dispatch => bindActionCreators(conversionActions, dispatch)
 )(Conversion)

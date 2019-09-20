@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 
+const notEmpty = value => {
+  if (!value || +value <= 0) return 'empty'
+}
 class ConversionForm extends Component {
   render() {
     const { handleSubmit, invalid, currencies, isLoading } = this.props
@@ -8,6 +11,7 @@ class ConversionForm extends Component {
     const currOptions = currencies && Object.entries(currencies).map(([code, name]) => 
       <option key={code} value={code}>{name}</option>
     )
+    currOptions.unshift(<option key='null' value=''>Select currency</option>)
 
     return (
       <form noValidate onSubmit={handleSubmit}>
@@ -18,6 +22,7 @@ class ConversionForm extends Component {
               name='sourceCurrency'
               type='select'
               component='select'
+              validate={[notEmpty]}
             >
               {currOptions}
             </Field>
@@ -28,6 +33,7 @@ class ConversionForm extends Component {
               name='destCurrency'
               type='select'
               component='select'
+              validate={[notEmpty]}
             >
               {currOptions}
             </Field>
@@ -38,7 +44,7 @@ class ConversionForm extends Component {
             name='amount'
             type='number'
             component='input'
-            // validate=[]
+            validate={[notEmpty]}
           />
           </div>
         </div>

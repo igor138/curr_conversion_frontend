@@ -3,7 +3,8 @@ import * as types from '../types/conversion'
 const initialState = {
   currencies: {},
   convertedAmount: 0,
-  isLoading: false
+  isLoading: false,
+  error: null
 }
 
 export default (state = initialState, action) => {
@@ -21,11 +22,27 @@ export default (state = initialState, action) => {
         currencies: action.payload
       }
     }
+
+    case types.CONVERSION_STARTED: {
+      return {
+        ...state,
+        isLoading: true
+      }
+    } 
+    
     case types.CONVERSION_FINISHED: {
       return {
         ...state,
         isLoading: false,
         convertedAmount: action.payload.response
+      }
+    }
+
+    case types.CONVERSION_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
       }
     } 
     default: {

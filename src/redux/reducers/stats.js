@@ -25,7 +25,13 @@ export default (state = initialState, action) => {
         totalAmount: action.payload.totalAmount
       }
     }
-    
+    case types.STATS_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    }
     default: {
       return state
     }  
