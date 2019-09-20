@@ -46,7 +46,6 @@ const ConversionForm  = ({ handleSubmit, invalid, currencies, isLoading }) => {
       </div>
       <button
         type='submit'
-        className='avs-btn avs-btn-primary avs-large'
         disabled={invalid || isLoading}
       >
         Convert
